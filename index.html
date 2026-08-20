@@ -1,3 +1,4 @@
+
 <html lang="en"><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# product: http://ogp.me/ns/product#"><link id="hr-style-1" rel="stylesheet" type="text/css" href="https://helloretailcdn.com/scripts/modules/overlay.css">
     <meta charset="utf-8">
 <meta name="title" content="Customise  your own HPE Primera 600 - at Renewtech.co.uk">
@@ -33011,4 +33012,178 @@ ul.aw-filter-list li.selected > ul,
 	</div>
 
 </div>
-</div><iframe id="focalChat" src="https://kimbrer.focalscope.com/lchat/../?uid=livechat&amp;sIdMod=Widget&amp;group=EN-us%20RenewTech&amp;lang=__&amp;user=&amp;sLCMode=chat&amp;__v=5238" style="border-style: none; position: absolute; bottom: 0px; right: 0px; height: 0px; width: 0px;"></iframe></div></body></html>
+</div><iframe id="focalChat" src="https://kimbrer.focalscope.com/lchat/../?uid=livechat&amp;sIdMod=Widget&amp;group=EN-us%20RenewTech&amp;lang=__&amp;user=&amp;sLCMode=chat&amp;__v=5238" style="border-style: none; position: absolute; bottom: 0px; right: 0px; height: 0px; width: 0px;"></iframe></div>
+<!-- Primera mockup hard drive options override -->
+<style>
+  #primera-hard-drives .primera-drive-subgroup { margin-top: 18px; }
+  #primera-hard-drives .primera-drive-subtitle { font-weight: 600; font-size: 0.95rem; margin-bottom: 8px; }
+  #primera-hard-drives .primera-drive-choice { margin-top: 8px; }
+  #primera-hard-drives .primera-drive-input { position: absolute; opacity: 0; pointer-events: none; }
+  #primera-hard-drives .primera-drive-label {
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    width: 100%; cursor: pointer; font-size: 0.75rem; padding: 1rem;
+    background: #fff; border: 1px solid #9ca3af; border-radius: 0.5rem;
+    flex-wrap: wrap;
+  }
+  #primera-hard-drives .primera-drive-input:checked + .primera-drive-label {
+    border-color: #1dbf84; border-width: 4px; padding: calc(1rem - 3px);
+  }
+  #primera-hard-drives .primera-drive-name { flex: 1 1 520px; min-width: 0; }
+  #primera-hard-drives .primera-drive-qty { white-space: nowrap; font-weight: 600; }
+  #primera-hard-drives .primera-drive-price { white-space: nowrap; font-weight: 700; }
+  @media (max-width: 767px) {
+    #primera-hard-drives .primera-drive-label { align-items: flex-start; }
+    #primera-hard-drives .primera-drive-name { flex-basis: 100%; }
+  }
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const hardDriveContainers = Array.from(document.querySelectorAll('.options-list-container')).filter(function (el) {
+    const label = el.querySelector(':scope > label span');
+    return label && label.textContent.trim().toLowerCase() === 'harddrives';
+  });
+  if (!hardDriveContainers.length) return;
+
+  hardDriveContainers.forEach(function (el) { el.style.display = 'none'; });
+
+  const groups = [
+    {
+      title: 'SAS or NVMe Drives 1-8',
+      sections: [
+        { title: 'NVMe SSD (2.5\")', items: [
+          ['1067944','HPE Primera 600 3.84TB NVMe SFF (2.5in) SSD R0Q07A P13380-001','7200.00'],
+          ['1067945','HPE Primera 600 7.68TB NVMe SFF (2.5in) SSD R0Q08A P13381-001','10060.80']
+        ]},
+        { title: 'NVMe SSD FIPS (2.5\")', items: [
+          ['1067949','HPE Primera 600 1.92TB NVMe SFF (2.5in) FIPS Encrypted SSD R3B21A P27646-001','5030.40']
+        ]},
+        { title: 'SAS SSD (2.5\")', items: [
+          ['1067952','HPE Primera 600 1.92TB SAS SFF (2.5in) SSD R0P95A P13368-001','3840.00'],
+          ['1067953','HPE Primera 600 3.84TB SAS SFF (2.5in) SSD R0P96A P13369-001','5280.00'],
+          ['1067954','HPE Primera 600 7.68TB SAS SFF (2.5in) SSD R0P97A P13370-001','13248.00']
+        ]},
+        { title: 'SAS SSD FIPS (2.5\")', items: [
+          ['1067957','HPE Primera 600 1.92TB SAS SFF (2.5in) FIPS Encrypted SSD R3R39A P19587-001','5040.00'],
+          ['1067958','HPE Primera 600 3.84TB SAS SFF (2.5in) FIPS Encrypted SSD R0P99A P13372-001','6115.20'],
+          ['1067959','HPE Primera 600 7.68TB SAS SFF (2.5\") FIPS Encrypted Solid State Drive R0Q00A P13373-001 P26232-001','10406.40']
+        ]}
+      ]
+    },
+    {
+      title: 'SAS SSD Drives 9 - 16',
+      sections: [
+        { title: 'SAS SSD (2.5\")', items: [
+          ['1067962','HPE Primera 600 1.92TB SAS SFF (2.5in) SSD R0P95A P13368-001','3840.00'],
+          ['1067963','HPE Primera 600 3.84TB SAS SFF (2.5in) SSD R0P96A P13369-001','5280.00'],
+          ['1067964','HPE Primera 600 7.68TB SAS SFF (2.5in) SSD R0P97A P13370-001','13248.00']
+        ]},
+        { title: 'SAS SSD FIPS (2.5\")', items: [
+          ['1067967','HPE Primera 600 1.92TB SAS SFF (2.5in) FIPS Encrypted SSD R3R39A P19587-001','5040.00'],
+          ['1067968','HPE Primera 600 3.84TB SAS SFF (2.5in) FIPS Encrypted SSD R0P99A P13372-001','6115.20'],
+          ['1067969','HPE Primera 600 7.68TB SAS SFF (2.5\") FIPS Encrypted Solid State Drive R0Q00A P13373-001 P26232-001','10406.40']
+        ]}
+      ]
+    },
+    {
+      title: 'SAS SSD Drives 17-24',
+      sections: [
+        { title: 'SAS SSD (2.5\")', items: [
+          ['1067972','HPE Primera 600 1.92TB SAS SFF (2.5in) SSD R0P95A P13368-001','3840.00'],
+          ['1067973','HPE Primera 600 3.84TB SAS SFF (2.5in) SSD R0P96A P13369-001','5280.00'],
+          ['1067974','HPE Primera 600 7.68TB SAS SFF (2.5in) SSD R0P97A P13370-001','13248.00']
+        ]},
+        { title: 'SAS SSD FIPS (2.5\")', items: [
+          ['1067977','HPE Primera 600 1.92TB SAS SFF (2.5in) FIPS Encrypted SSD R3R39A P19587-001','5040.00'],
+          ['1067978','HPE Primera 600 3.84TB SAS SFF (2.5in) FIPS Encrypted SSD R0P99A P13372-001','6115.20'],
+          ['1067979','HPE Primera 600 7.68TB SAS SFF (2.5\") FIPS Encrypted Solid State Drive R0Q00A P13373-001 P26232-001','10406.40']
+        ]}
+      ]
+    }
+  ];
+
+  const wrapper = document.createElement('div');
+  wrapper.id = 'primera-hard-drives';
+  wrapper.className = 'options-list-container my-2 pt-4 pb-2 w-full border-t border-container';
+
+  const mainLabel = document.createElement('div');
+  mainLabel.className = 'label text-lg font-semibold p-4 mt-4 mb-0 border border-gray-200 flex items-center justify-between cursor-pointer';
+  mainLabel.setAttribute('role', 'button');
+  mainLabel.setAttribute('tabindex', '0');
+  mainLabel.setAttribute('aria-expanded', 'true');
+  mainLabel.innerHTML = '<span>Hard Drives</span>' +
+    '<span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="24" height="24" role="img" aria-hidden="true" style="transition: transform 0.2s ease; transform: rotate(180deg);">' +
+    '<path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>' +
+    '<title>chevron-down</title></svg></span>';
+  wrapper.appendChild(mainLabel);
+
+  const control = document.createElement('div');
+  control.className = 'control p-4 border border-gray-200';
+  control.style.background = '#f9f9f9';
+
+  const hardDriveChevron = mainLabel.querySelector('svg');
+  function setHardDrivesOpen(isOpen) {
+    control.style.display = isOpen ? '' : 'none';
+    mainLabel.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    hardDriveChevron.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+  }
+  function toggleHardDrives() {
+    setHardDrivesOpen(mainLabel.getAttribute('aria-expanded') !== 'true');
+  }
+  mainLabel.addEventListener('click', toggleHardDrives);
+  mainLabel.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      toggleHardDrives();
+    }
+  });
+
+  groups.forEach(function (group, groupIndex) {
+    const groupBlock = document.createElement('div');
+    groupBlock.className = 'primera-drive-subgroup';
+
+    const heading = document.createElement('div');
+    heading.className = 'text-base font-semibold mb-3';
+    heading.textContent = group.title;
+    groupBlock.appendChild(heading);
+
+    group.sections.forEach(function (section) {
+      const sectionTitle = document.createElement('div');
+      sectionTitle.className = 'primera-drive-subtitle';
+      sectionTitle.textContent = section.title;
+      groupBlock.appendChild(sectionTitle);
+
+      section.items.forEach(function (item) {
+        const choice = document.createElement('div');
+        choice.className = 'primera-drive-choice';
+
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.className = 'primera-drive-input';
+        input.name = 'primera_drive_group_' + (groupIndex + 1);
+        input.id = 'primera-drive-' + item[0];
+        input.value = item[0];
+        input.dataset.qty = '8';
+        input.dataset.price = item[2];
+        input.dataset.productName = item[1];
+
+        const label = document.createElement('label');
+        label.className = 'primera-drive-label';
+        label.htmlFor = input.id;
+        label.innerHTML = '<span class="primera-drive-name product-name"></span>' +
+          '<span class="primera-drive-qty">Qty 8</span>' +
+          '<span class="primera-drive-price">+£' + Number(item[2]).toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '</span>';
+        label.querySelector('.primera-drive-name').textContent = item[1];
+
+        choice.appendChild(input);
+        choice.appendChild(label);
+        groupBlock.appendChild(choice);
+      });
+    });
+    control.appendChild(groupBlock);
+  });
+
+  wrapper.appendChild(control);
+  hardDriveContainers[0].parentNode.insertBefore(wrapper, hardDriveContainers[0]);
+});
+</script>
+</body></html>
