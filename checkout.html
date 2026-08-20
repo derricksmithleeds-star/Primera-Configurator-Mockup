@@ -76,20 +76,34 @@
     function money(value) {
         return new Intl.NumberFormat('en-GB', {
             style: 'currency',
-            currency: 'GBP'
+            currency: 'GBP',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
         }).format(Number(value) || 0);
     }
 
     var target = document.getElementById('configuration-items');
-    var stored = localStorage.getItem('primeraConfiguration');
-    var data = stored ? JSON.parse(stored) : null;
+    var subtotal = document.getElementById('subtotal');
+    var total = document.getElementById('total');
+
+    var data = null;
+    try {
+        var stored = localStorage.getItem('primeraConfiguration');
+        data = stored ? JSON.parse(stored) : null;
+    } catch (error) {
+        console.error('Could not read saved Primera configuration', error);
+    }
 
     if (!data || !Array.isArray(data.items) || !data.items.length) {
         target.innerHTML =
             '<div class="empty">No configuration has been saved yet. ' +
             '<a href="index.html" style="text-decoration:underline;">Return to the configurator</a>.</div>';
+        subtotal.textContent = '£0.00';
+        total.textContent = '£0.00';
         return;
     }
+
+    target.innerHTML = '';
 
     data.items.forEach(function (item) {
         var row = document.createElement('div');
@@ -99,19 +113,20 @@
 
         var category = document.createElement('div');
         category.className = 'category';
-        category.textContent = item.category;
+        category.textContent = item.category || 'Configuration';
 
         var name = document.createElement('div');
         name.className = 'option-name';
-        name.textContent = item.name;
+        name.textContent = item.name || '';
 
         details.appendChild(category);
         details.appendChild(name);
 
-        if ((item.qty || 1) > 1) {
+        var qtyValue = Number(item.qty) || 1;
+        if (qtyValue > 1) {
             var qty = document.createElement('div');
             qty.className = 'qty';
-            qty.textContent = 'Qty: ' + item.qty;
+            qty.textContent = 'Qty: ' + qtyValue;
             details.appendChild(qty);
         }
 
@@ -124,8 +139,12 @@
         target.appendChild(row);
     });
 
-    document.getElementById('subtotal').textContent = money(data.total);
-    document.getElementById('total').textContent = money(data.total);
+    var configTotal = Number(data.total) || data.items.reduce(function (sum, item) {
+        return sum + (Number(item.lineTotal) || 0);
+    }, 0);
+
+    subtotal.textContent = money(configTotal);
+    total.textContent = money(configTotal);
 })();
 </script>
 </body>
