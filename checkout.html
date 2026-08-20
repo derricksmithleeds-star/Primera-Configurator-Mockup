@@ -27,14 +27,72 @@
                          margin-top: 10px; border-top: 1px solid #d1d5db; font-weight: 700; font-size: 20px; }
         .empty { padding: 24px 20px; }
         .actions { margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap; }
-        @media (max-width: 850px) { .mock-grid { grid-template-columns: 1fr; } }
+
+        .quote-cta {
+            margin-top: 22px;
+            background: #c7e7eb;
+            padding: 44px 20px;
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr);
+            gap: 32px;
+            align-items: center;
+        }
+        .quote-cta-copy {
+            font-size: 22px;
+            line-height: 1.25;
+            max-width: 690px;
+        }
+        .quote-cta-button {
+            justify-self: start;
+            min-width: 330px;
+            text-align: center;
+            font-size: 20px;
+            padding: 15px 24px;
+            border-radius: 8px;
+        }
+        .quote-cta-button:hover {
+            opacity: 0.8;
+        }
+        @media (max-width: 850px) {
+            .mock-grid { grid-template-columns: 1fr; }
+            .quote-cta { grid-template-columns: 1fr; padding: 30px 22px; }
+            .quote-cta-button { justify-self: stretch; min-width: 0; }
+        }
+
+    
+        .quote-cta .quote-cta-button,
+        .quote-cta .quote-cta-button:hover,
+        .quote-cta .quote-cta-button:focus,
+        .quote-cta .quote-cta-button:active {
+            transform: none !important;
+            translate: none !important;
+            position: static !important;
+            top: auto !important;
+            right: auto !important;
+            bottom: auto !important;
+            left: auto !important;
+            margin-top: 0 !important;
+            margin-bottom: 0 !important;
+            padding: 15px 24px !important;
+            line-height: normal !important;
+        }
+        .quote-cta .quote-cta-button:hover {
+            opacity: 0.8 !important;
+        }
+        .quote-cta .quote-cta-button::before,
+        .quote-cta .quote-cta-button::after,
+        .quote-cta .quote-cta-button:hover::before,
+        .quote-cta .quote-cta-button:hover::after {
+            transform: none !important;
+        }
+
     </style>
 </head>
 <body>
     <header class="mock-header">
         <div class="mock-wrap" style="padding-top:18px;padding-bottom:18px;">
             <a href="index.html" aria-label="Back to configurator">
-                <img src="https://www.renewtech.co.uk/media/logo/stores/26/renewtech-logo-positive-rgb_1.png"
+                <img src="https://www.renewtech.co.uk/media/converted/logo/stores/26/logo_web.webp"
                      alt="Renewtech" style="height:38px;width:auto;">
             </a>
         </div>
@@ -69,6 +127,13 @@
                 </div>
             </aside>
         </div>
+
+        <section class="quote-cta" aria-label="Request a final quote">
+            <div class="quote-cta-copy">
+                Submit this configuration to receive an up-to-date quote from our sales team, who will review it, confirm pricing, and source the components from stock.
+            </div>
+            <button type="button" class="btn btn-primary quote-cta-button">Confirm &amp; Request Quote</button>
+        </section>
     </main>
 
 <script>
