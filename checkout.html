@@ -1,0 +1,132 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Your HPE Primera 600 Configuration</title>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="https://www.renewtech.co.uk/static/version1784041663/frontend/Renewtech/default/en_US/css/styles.css">
+    <style>
+        body { background: #fff; }
+        .mock-header { border-bottom: 1px solid #e5e7eb; }
+        .mock-wrap { max-width: 1280px; margin: 0 auto; padding: 28px 20px 60px; }
+        .mock-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr); gap: 32px; }
+        .config-card, .summary-card { border: 1px solid #d1d5db; background: #fff; }
+        .config-heading, .summary-heading { padding: 18px 20px; border-bottom: 1px solid #d1d5db; font-weight: 600; }
+        .config-row { padding: 16px 20px; border-bottom: 1px solid #e5e7eb; display: grid;
+                      grid-template-columns: minmax(0, 1fr) auto; gap: 20px; }
+        .config-row:last-child { border-bottom: 0; }
+        .category { font-weight: 600; margin-bottom: 5px; }
+        .option-name { font-size: 14px; line-height: 1.45; }
+        .qty { font-size: 13px; margin-top: 5px; color: #4b5563; }
+        .price { text-align: right; white-space: nowrap; font-size: 14px; }
+        .summary-body { padding: 20px; }
+        .summary-line { display: flex; justify-content: space-between; gap: 20px; padding: 8px 0; }
+        .summary-total { display: flex; justify-content: space-between; gap: 20px; padding-top: 18px;
+                         margin-top: 10px; border-top: 1px solid #d1d5db; font-weight: 700; font-size: 20px; }
+        .empty { padding: 24px 20px; }
+        .actions { margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap; }
+        @media (max-width: 850px) { .mock-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header class="mock-header">
+        <div class="mock-wrap" style="padding-top:18px;padding-bottom:18px;">
+            <a href="index.html" aria-label="Back to configurator">
+                <img src="https://www.renewtech.co.uk/media/logo/stores/26/renewtech-logo-positive-rgb_1.png"
+                     alt="Renewtech" style="height:38px;width:auto;">
+            </a>
+        </div>
+    </header>
+
+    <main class="mock-wrap">
+        <h1 class="text-3xl font-semibold mb-7">Your Configuration</h1>
+
+        <div class="mock-grid">
+            <section class="config-card">
+                <div class="config-heading">HPE Primera 600</div>
+                <div id="configuration-items"></div>
+            </section>
+
+            <aside>
+                <div class="summary-card">
+                    <div class="summary-heading">Order Summary</div>
+                    <div class="summary-body">
+                        <div class="summary-line">
+                            <span>Configuration subtotal</span>
+                            <span id="subtotal">£0.00</span>
+                        </div>
+                        <div class="summary-total">
+                            <span>Total</span>
+                            <span id="total">£0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <a class="btn btn-secondary" href="index.html">Edit Configuration</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+<script>
+(function () {
+    function money(value) {
+        return new Intl.NumberFormat('en-GB', {
+            style: 'currency',
+            currency: 'GBP'
+        }).format(Number(value) || 0);
+    }
+
+    var target = document.getElementById('configuration-items');
+    var stored = localStorage.getItem('primeraConfiguration');
+    var data = stored ? JSON.parse(stored) : null;
+
+    if (!data || !Array.isArray(data.items) || !data.items.length) {
+        target.innerHTML =
+            '<div class="empty">No configuration has been saved yet. ' +
+            '<a href="index.html" style="text-decoration:underline;">Return to the configurator</a>.</div>';
+        return;
+    }
+
+    data.items.forEach(function (item) {
+        var row = document.createElement('div');
+        row.className = 'config-row';
+
+        var details = document.createElement('div');
+
+        var category = document.createElement('div');
+        category.className = 'category';
+        category.textContent = item.category;
+
+        var name = document.createElement('div');
+        name.className = 'option-name';
+        name.textContent = item.name;
+
+        details.appendChild(category);
+        details.appendChild(name);
+
+        if ((item.qty || 1) > 1) {
+            var qty = document.createElement('div');
+            qty.className = 'qty';
+            qty.textContent = 'Qty: ' + item.qty;
+            details.appendChild(qty);
+        }
+
+        var price = document.createElement('div');
+        price.className = 'price';
+        price.textContent = money(item.lineTotal);
+
+        row.appendChild(details);
+        row.appendChild(price);
+        target.appendChild(row);
+    });
+
+    document.getElementById('subtotal').textContent = money(data.total);
+    document.getElementById('total').textContent = money(data.total);
+})();
+</script>
+</body>
+</html>
