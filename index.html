@@ -27877,7 +27877,7 @@ The cookie policy itself is updated once a month by <a href="https://cookieinfor
             </div>
             </div>
                             
-<button type="submit" title="" form="novalidateform" onclick="checkOptions()" class="btn btn-primary pl-10 pr-10" id="product-addtocart-button">
+<button type="button" title="" class="btn btn-primary pl-10 pr-10" id="product-addtocart-button">
     <svg class="w-6 h-6 border-current" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707
                           1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
@@ -33078,6 +33078,149 @@ ul.aw-filter-list li.selected > ul,
       }
     });
   });
+})();
+</script>
+
+
+<script id="primera-checkout-persistence">
+(function () {
+    function cleanText(value) {
+        return (value || '').replace(/\s+/g, ' ').trim();
+    }
+
+    function parsePrice(text) {
+        var match = cleanText(text).match(/(?:\+|-)?£\s*([\d,]+(?:\.\d{1,2})?)/);
+        return match ? parseFloat(match[1].replace(/,/g, '')) : 0;
+    }
+
+    function getCategory(input) {
+        var container = input.closest('.options-list-container');
+        if (!container) return 'Configuration';
+
+        var staticHeader = container.querySelector(':scope > [data-static-toggle] > span:first-child');
+        if (staticHeader) return cleanText(staticHeader.textContent);
+
+        var label = container.querySelector(':scope > label > span:first-child');
+        return label ? cleanText(label.textContent) : 'Configuration';
+    }
+
+    function getOptionName(input) {
+        if (input.dataset && input.dataset.productName) {
+            return cleanText(input.dataset.productName);
+        }
+
+        var id = input.getAttribute('id');
+        if (id) {
+            var label = document.querySelector('label[for="' + CSS.escape(id) + '"]');
+            if (label) {
+                var productName = label.querySelector('.product-name');
+                if (productName) return cleanText(productName.textContent);
+
+                var spans = label.querySelectorAll('span');
+                if (spans.length) {
+                    var first = cleanText(spans[0].textContent);
+                    if (first && first.toLowerCase() !== 'none') return first;
+                }
+            }
+        }
+        return '';
+    }
+
+    function getOptionPrice(input) {
+        if (input.dataset && input.dataset.price) {
+            return parseFloat(input.dataset.price) || 0;
+        }
+
+        var id = input.getAttribute('id');
+        var label = id ? document.querySelector('label[for="' + CSS.escape(id) + '"]') : null;
+        if (!label) return 0;
+
+        var priceEl = label.querySelector('.price-wrapper, .price');
+        return priceEl ? parsePrice(priceEl.textContent) : 0;
+    }
+
+    function getOptionQty(input) {
+        // Custom Primera static options do not expose quantity controls.
+        if (input.id && input.id.indexOf('primera-') === 0) return 1;
+
+        var container = input.closest('.choice');
+        if (container) {
+            var qtyInput = container.querySelector('input[type="number"]');
+            if (qtyInput) {
+                var qty = parseInt(qtyInput.value, 10);
+                if (!isNaN(qty) && qty > 0) return qty;
+            }
+        }
+
+        // Some copied Magento quantity inputs sit outside the immediate choice.
+        var optionContainer = input.closest('.options-list-container');
+        if (optionContainer) {
+            var selectedId = input.value;
+            if (selectedId) {
+                var possible = optionContainer.querySelector(
+                    'input[type="number"][id*="' + CSS.escape(selectedId) + '"]'
+                );
+                if (possible) {
+                    var possibleQty = parseInt(possible.value, 10);
+                    if (!isNaN(possibleQty) && possibleQty > 0) return possibleQty;
+                }
+            }
+        }
+
+        return 1;
+    }
+
+    function collectConfiguration() {
+        var items = [];
+
+        document.querySelectorAll(
+            '#product-options-configuration input[type="radio"]:checked, ' +
+            '#product-options-configuration input[type="checkbox"]:checked'
+        ).forEach(function (input) {
+            if (!input.value) return;
+
+            var name = getOptionName(input);
+            if (!name || name.toLowerCase() === 'none') return;
+
+            var unitPrice = getOptionPrice(input);
+            var qty = getOptionQty(input);
+
+            items.push({
+                category: getCategory(input),
+                name: name,
+                unitPrice: unitPrice,
+                qty: qty,
+                lineTotal: unitPrice * qty
+            });
+        });
+
+        return items;
+    }
+
+    function saveConfiguration() {
+        var items = collectConfiguration();
+        var total = items.reduce(function (sum, item) {
+            return sum + item.lineTotal;
+        }, 0);
+
+        var payload = {
+            product: 'HPE Primera 600',
+            savedAt: new Date().toISOString(),
+            items: items,
+            total: total
+        };
+
+        localStorage.setItem('primeraConfiguration', JSON.stringify(payload));
+        window.location.href = 'checkout.html';
+    }
+
+    var addButton = document.getElementById('product-addtocart-button');
+    if (addButton) {
+        addButton.addEventListener('click', saveConfiguration);
+    }
+
+    // Expose this for easy testing from the browser console.
+    window.getPrimeraConfiguration = collectConfiguration;
 })();
 </script>
 
