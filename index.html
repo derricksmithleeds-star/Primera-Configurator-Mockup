@@ -1,4 +1,5 @@
 
+
 <html lang="en"><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# product: http://ogp.me/ns/product#"><link id="hr-style-1" rel="stylesheet" type="text/css" href="https://helloretailcdn.com/scripts/modules/overlay.css">
     <meta charset="utf-8">
 <meta name="title" content="Customise  your own HPE Primera 600 - at Renewtech.co.uk">
@@ -33017,20 +33018,9 @@ ul.aw-filter-list li.selected > ul,
 <style>
   #primera-hard-drives .primera-drive-subgroup { margin-top: 18px; }
   #primera-hard-drives .primera-drive-subtitle { font-weight: 600; font-size: 0.95rem; margin-bottom: 8px; }
-  #primera-hard-drives .primera-drive-choice { margin-top: 8px; }
-  #primera-hard-drives .primera-drive-input { position: absolute; opacity: 0; pointer-events: none; }
-  #primera-hard-drives .primera-drive-label {
-    display: flex; justify-content: space-between; align-items: center; gap: 16px;
-    width: 100%; cursor: pointer; font-size: 0.75rem; padding: 1rem;
-    background: #fff; border: 1px solid #9ca3af; border-radius: 0.5rem;
-    flex-wrap: wrap;
-  }
-  #primera-hard-drives .primera-drive-input:checked + .primera-drive-label {
-    border-color: #1dbf84; border-width: 4px; padding: calc(1rem - 3px);
-  }
+  #primera-hard-drives .primera-drive-label { width: 100%; }
   #primera-hard-drives .primera-drive-name { flex: 1 1 520px; min-width: 0; }
-  #primera-hard-drives .primera-drive-qty { white-space: nowrap; font-weight: 600; }
-  #primera-hard-drives .primera-drive-price { white-space: nowrap; font-weight: 700; }
+  #primera-hard-drives .primera-drive-price { white-space: nowrap; font-weight: 400; }
   @media (max-width: 767px) {
     #primera-hard-drives .primera-drive-label { align-items: flex-start; }
     #primera-hard-drives .primera-drive-name { flex-basis: 100%; }
@@ -33048,7 +33038,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const groups = [
     {
-      title: 'SAS or NVMe Drives 1-8',
+      title: '',
       sections: [
         { title: 'NVMe SSD (2.5\")', items: [
           ['1067944','HPE Primera 600 3.84TB NVMe SFF (2.5in) SSD R0Q07A P13380-001','7200.00'],
@@ -33070,7 +33060,7 @@ document.addEventListener('DOMContentLoaded', function () {
       ]
     },
     {
-      title: 'SAS SSD Drives 9 - 16',
+      title: '',
       sections: [
         { title: 'SAS SSD (2.5\")', items: [
           ['1067962','HPE Primera 600 1.92TB SAS SFF (2.5in) SSD R0P95A P13368-001','3840.00'],
@@ -33085,7 +33075,7 @@ document.addEventListener('DOMContentLoaded', function () {
       ]
     },
     {
-      title: 'SAS SSD Drives 17-24',
+      title: '',
       sections: [
         { title: 'SAS SSD (2.5\")', items: [
           ['1067972','HPE Primera 600 1.92TB SAS SFF (2.5in) SSD R0P95A P13368-001','3840.00'],
@@ -33154,11 +33144,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
       section.items.forEach(function (item) {
         const choice = document.createElement('div');
-        choice.className = 'primera-drive-choice';
+        choice.className = 'choice mt-2 flex flex-col items-center gap-x-2 primera-drive-choice';
 
         const input = document.createElement('input');
         input.type = 'radio';
-        input.className = 'primera-drive-input';
+        input.className = 'hidden peer radio product bundle option primera-drive-input';
         input.name = 'primera_drive_group_' + (groupIndex + 1);
         input.id = 'primera-drive-' + item[0];
         input.value = item[0];
@@ -33167,11 +33157,10 @@ document.addEventListener('DOMContentLoaded', function () {
         input.dataset.productName = item[1];
 
         const label = document.createElement('label');
-        label.className = 'primera-drive-label';
+        label.className = 'label mb-0 flex justify-between items-center w-full cursor-pointer text-xs p-4 bg-white border border-container border-gray-400 rounded-lg peer-checked:border-primary-kimbrer_lighter peer-checked:border-4 flex-wrap lg:flex-nowrap gap-y-2.5 primera-drive-label';
         label.htmlFor = input.id;
-        label.innerHTML = '<span class="primera-drive-name product-name"></span>' +
-          '<span class="primera-drive-qty">Qty 8</span>' +
-          '<span class="primera-drive-price">+£' + Number(item[2]).toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '</span>';
+        label.innerHTML = '<span class="w-full lg:pr-2 min-h-[26px] flex items-center"><span class="primera-drive-name product-name"></span></span>' +
+          '<span class="text-sm text-bold text-right min-w-max min-h-[26px] flex items-center"><span class="price-container tax weee"><span class="price-wrapper primera-drive-price">+£' + Number(item[2]).toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '</span></span></span>';
         label.querySelector('.primera-drive-name').textContent = item[1];
 
         choice.appendChild(input);
@@ -33186,4 +33175,124 @@ document.addEventListener('DOMContentLoaded', function () {
   hardDriveContainers[0].parentNode.insertBefore(wrapper, hardDriveContainers[0]);
 });
 </script>
+
+<style id="primera-hba-pair-1-styles">
+  #primera-hba-pair-1 .primera-option-subtitle {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin: 18px 0 8px;
+  }
+</style>
+<script id="primera-hba-pair-1-script">
+document.addEventListener('DOMContentLoaded', function () {
+  const oldCableContainer = Array.from(document.querySelectorAll('.options-list-container')).find(function (el) {
+    const label = el.querySelector(':scope > label > span:first-child');
+    return label && label.textContent.trim() === 'Cables';
+  });
+  if (!oldCableContainer) return;
+
+  oldCableContainer.style.display = 'none';
+
+  const groups = [
+    {
+      title: 'DAC Cables 8x (4x per HBA)',
+      items: [
+        ['1067905','HPE FlexNetwork X240 10G SFP+ to SFP+ 3m Direct Attach Copper Cable JD097C JD097-61201','432.00'],
+        ['1067906','HPE FlexNetwork X240 10G SFP+ to SFP+ 5m Direct Attach Copper Cable JG081C JG081-61201','1353.60'],
+        ['1067907','HPE FlexNetwork X240 40G QSFP+ to 4x10G SFP+ 3m Direct Attach Copper Splitter Cable JG330A JG330-61101','912.00'],
+        ['1067908','HPE FlexNetwork X240 40G QSFP+ to 4x10G SFP+ 5m Direct Attach Copper Splitter Cable JG331A JG331-61101','460.80'],
+        ['1067909','HPE Aruba Networking 10G SFP+ to SFP+ 3m DAC Cable J9283D','873.60'],
+        ['1067910','HPE Aruba Networking 10G SFP+ to SFP+ 7m Direct Attach Copper Cable J9285D J9285-61301','1440.00'],
+        ['1067911','HPE BladeSystem c-Class 10GbE SFP+ to SFP+ 3m Direct Attach Copper Cable 487655-B21 487969-001','432.00'],
+        ['1067912','HPE 25GbE SFP28 to SFP28 3m Smart Active Optical Cable Q9S67A P05771-001','739.20'],
+        ['1067913','HPE 25Gb SFP28 to SFP28 3m Direct Attach Copper Cable 844477-B21 850389-001','1200.00'],
+        ['1067914','HPE 100Gb QSFP28 to 4x25Gb SFP28 3m Direct Attach Copper Cable 845416-B21 850397-001','700.80']
+      ]
+    },
+    {
+      title: 'Transceivers 8x (4x per HBA)',
+      items: [
+        ['1067920','HPE 16Gb SFP+ Fibre Channel Short Wave 1-pack Pull Tab Optical Transceiver Q2P63A 878405-001','230.40'],
+        ['1067917','HPE 32Gb SFP28 Fibre Channel Short Wave 1-pack Pull Tab Optical Transceiver Q2P62A 878404-001','998.40'],
+        ['1067918','HPE 25Gb SFP28 Ethernet Short Wave 1-pack Pull Tab Optical Transceiver Q2P64A 878406-001','700.80'],
+        ['1067919','HPE 10Gb SFP+ Ethernet Short Wave 1-pack Pull Tab Optical Transceiver Q2P65A 878407-001','220.80']
+      ]
+    }
+  ];
+
+  const wrapper = document.createElement('div');
+  wrapper.id = 'primera-hba-pair-1';
+  wrapper.className = 'options-list-container my-2 pt-4 pb-2 w-full border-t border-container';
+
+  const heading = document.createElement('label');
+  heading.className = 'label text-lg font-semibold p-4 mt-4 mb-0 border border-gray-200 flex justify-between items-center cursor-pointer';
+  heading.setAttribute('role', 'button');
+  heading.setAttribute('tabindex', '0');
+  heading.setAttribute('aria-expanded', 'true');
+  heading.innerHTML = '<span>HBA Pair 1 - SFP Modules &amp; DAC Cables</span>' +
+    '<span><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="transition" width="24" height="24" role="img" style="transition: transform 0.2s ease; transform: rotate(180deg);"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path><title>chevron-down</title></svg></span>';
+
+  const control = document.createElement('div');
+  control.className = 'control p-4 border border-gray-200';
+  control.style.background = '#f9f9f9';
+
+  const nested = document.createElement('div');
+  nested.className = 'nested options-list type-input';
+  control.appendChild(nested);
+
+  groups.forEach(function (group) {
+    const subtitle = document.createElement('div');
+    subtitle.className = 'primera-option-subtitle';
+    subtitle.textContent = group.title;
+    nested.appendChild(subtitle);
+
+    group.items.forEach(function (item) {
+      const choice = document.createElement('div');
+      choice.className = 'choice mt-2 flex flex-col items-center gap-x-2';
+
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.className = 'hidden peer radio product bundle option';
+      input.name = 'primera_hba_pair_1';
+      input.id = 'primera-hba-pair-1-' + item[0];
+      input.value = item[0];
+      input.dataset.price = item[2];
+      input.dataset.productName = item[1];
+
+      const label = document.createElement('label');
+      label.className = 'label mb-0 flex justify-between items-center w-full cursor-pointer text-xs p-4 bg-white border border-container border-gray-400 rounded-lg peer-checked:border-primary-kimbrer_lighter peer-checked:border-4 flex-wrap lg:flex-nowrap gap-y-2.5';
+      label.htmlFor = input.id;
+      label.innerHTML = '<span class="w-full lg:pr-2 min-h-[26px] flex items-center"><span class="product-name"></span></span>' +
+        '<span class="text-sm text-bold text-right min-w-max min-h-[26px] flex items-center"><span class="price-container tax weee"><span class="price-wrapper">+£' + Number(item[2]).toLocaleString('en-GB', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '</span></span></span>';
+      label.querySelector('.product-name').textContent = item[1];
+
+      choice.appendChild(input);
+      choice.appendChild(label);
+      nested.appendChild(choice);
+    });
+  });
+
+  const chevron = heading.querySelector('svg');
+  function setOpen(isOpen) {
+    control.style.display = isOpen ? '' : 'none';
+    heading.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    chevron.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+  }
+  function toggleOpen() {
+    setOpen(heading.getAttribute('aria-expanded') !== 'true');
+  }
+  heading.addEventListener('click', toggleOpen);
+  heading.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      toggleOpen();
+    }
+  });
+
+  wrapper.appendChild(heading);
+  wrapper.appendChild(control);
+  oldCableContainer.parentNode.insertBefore(wrapper, oldCableContainer);
+});
+</script>
+
 </body></html>
